@@ -12,7 +12,7 @@ services:
     networks:
       - dokuwiki
     volumes:
-      - ./dokuwiki:/var/www
+      - dokuwiki:/var/www
     deploy:
       replicas: 2
       restart_policy:
@@ -26,7 +26,7 @@ services:
     networks:
       - dokuwiki
     volumes:
-      - ./dokuwiki:/var/www
+      - dokuwiki:/var/www
     deploy:
       replicas: 3
       restart_policy:
@@ -36,5 +36,9 @@ networks:
   dokuwiki:
     driver: "overlay"
 
-
-
+volumes:
+  dokuwiki:
+    driver_opts:
+      type: "nfs"
+      o: "addr=192.168.0.20,nolock,soft,rw"
+      device: ":/mnt/data/dokuwiki"
