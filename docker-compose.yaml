@@ -1,0 +1,40 @@
+version: "3.3"
+services:
+  http:
+    build:
+      context: ./http/
+      dockerfile: Dockerfile
+    image: 127.0.0.1:5000/dokuwiki-http
+    ports:
+      - 8000:80
+    depends_on:
+      - php
+    networks:
+      - dokuwiki
+    volumes:
+      - ./dokuwiki:/var/www
+    deploy:
+      replicas: 2
+    restart_policy:
+      condition: on-failure
+  
+  php:
+    build:
+      context: ./php/
+      dockerfile: Dockerfile
+    image: 127.0.0.1:5000/dokuwiki-php
+    networks:
+      - dokuwiki
+    volumes:
+      - ./dokuwiki:/var/www
+    deploy:
+      replicas: 3
+    restart_policy:
+      condition: on-failure
+
+networks:
+  dokuwiki:
+    driver: "overlay"
+
+
+
