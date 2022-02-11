@@ -15,8 +15,8 @@ services:
       - ./dokuwiki:/var/www
     deploy:
       replicas: 2
-    restart_policy:
-      condition: on-failure
+      restart_policy:
+        condition: on-failure
   
   php:
     build:
@@ -29,8 +29,8 @@ services:
       - ./dokuwiki:/var/www
     deploy:
       replicas: 3
-    restart_policy:
-      condition: on-failure
+      restart_policy:
+        condition: on-failure
 
 networks:
   dokuwiki:
